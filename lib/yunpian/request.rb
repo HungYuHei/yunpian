@@ -26,7 +26,7 @@ module Yunpian
 
     def perform!
       json = perform
-      json['code'] == 0 || raise(RequestException.new(json))
+      json['code'] == 0 ? json : raise(RequestException.new(json))
     end
   end
 end
