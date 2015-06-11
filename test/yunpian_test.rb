@@ -23,6 +23,13 @@ class TestYunpian < Minitest::Test
     refute_nil ::Yunpian.send_to('1234567890', 'hello')
   end
 
+  def test_send_to_with_array_success
+    stub_request(:post, 'http://yunpian.com/v1/sms/send.json').
+      to_return(status: 200, body: %Q({"code":0,"msg":"OK"}))
+
+    refute_nil ::Yunpian.send_to(%w(12345 67890), 'hello')
+  end
+
   def test_send_to_fail
     stub_request(:post, 'http://yunpian.com/v1/sms/send.json').
       to_return(status: 200, body: %Q({"code":1,"msg":"FAIL"}))

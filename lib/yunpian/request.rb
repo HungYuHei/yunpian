@@ -3,24 +3,17 @@ require 'json'
 
 module Yunpian
   class Request
-    GATEWAY = 'http://yunpian.com/v1/sms/send.json'
-
-    def initialize(recipients, content)
-      @recipients = Array(recipients)
-      @content = Yunpian.signature + content
+    def initialize(gateway, params)
+      @gateway = gateway
+      @params = params
     end
 
     def perform
-      uri = URI(GATEWAY)
+      uri = URI(@gateway)
       req = Net::HTTP::Post.new(uri)
-
-      req.set_form_data(
-        apikey: Yunpian.apikey,
-        mobile: @recipients.join(','),
-        text: @content
-      )
-
+      req.set_form_data(@params)
       timeout = Yunpian.timeout
+
       res = Net::HTTP.start(uri.hostname,
                             uri.port,
                             read_timeout: timeout,
