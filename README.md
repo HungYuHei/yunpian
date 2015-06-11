@@ -34,6 +34,11 @@ Yunpian.send_to('10086', '流量唔够用啊') # => { code: 0, msg: "OK", result
 Yunpian.send_to!('10086', '流量唔够用啊')  # => will raise Yunpian::RequestException
 ```
 
+### Get account info
+```ruby
+Yunpian.account_info # => {"code"=>0, "msg"=>"OK", "user"=>{...}}
+```
+
 
 ## Development
 

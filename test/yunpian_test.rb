@@ -50,4 +50,11 @@ class TestYunpian < Minitest::Test
 
     assert_raises(::Yunpian::RequestException) { ::Yunpian.send_to!('1234567890', 'hi') }
   end
+
+  def test_get_account_info_success
+    stub_request(:post, ::Yunpian::ACCOUNT_GATEWAY).
+      to_return(status: 200, body: %Q({"code":0,"msg":"OK","user":{"nick": "name"}}))
+
+    refute_nil ::Yunpian.account_info
+  end
 end

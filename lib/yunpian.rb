@@ -2,7 +2,8 @@ require 'yunpian/version'
 require 'yunpian/request'
 
 module Yunpian
-  SEND_GATEWAY = 'http://yunpian.com/v1/sms/send.json'
+  SEND_GATEWAY    = 'http://yunpian.com/v1/sms/send.json'
+  ACCOUNT_GATEWAY = 'http://yunpian.com/v1/user/get.json'
 
   @timeout = 5
 
@@ -25,6 +26,10 @@ module Yunpian
         text:   content
       }
       Request.new(SEND_GATEWAY, params).perform!
+    end
+
+    def account_info
+      Request.new(ACCOUNT_GATEWAY, apikey: Yunpian.apikey).perform
     end
   end
 
