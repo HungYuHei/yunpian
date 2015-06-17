@@ -14,7 +14,7 @@ module Yunpian
       params = {
         apikey: Yunpian.apikey,
         mobile: Array(recipients).join(','),
-        text:   content
+        text:   "#{Yunpian.signature}#{content}"
       }
       Request.new(SEND_GATEWAY, params).perform
     end
@@ -23,7 +23,7 @@ module Yunpian
       params = {
         apikey: Yunpian.apikey,
         mobile: Array(recipients).join(','),
-        text:   content
+        text:   "#{Yunpian.signature}#{content}"
       }
       Request.new(SEND_GATEWAY, params).perform!
     end
