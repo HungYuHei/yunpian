@@ -23,6 +23,14 @@ class TestYunpian < Minitest::Test
     refute_nil ::Yunpian.send_to('1234567890', 'hello')
   end
 
+  def test_send_to_override_signature_success
+    stub_request(:post, 'http://yunpian.com/v1/sms/send.json').
+      with(body: hash_including(text: "【signature2】hello")).
+      to_return(status: 200, body: %Q({"code":0,"msg":"OK"}))
+
+    refute_nil ::Yunpian.send_to('1234567890', 'hello', '【signature2】')
+  end
+
   def test_send_to_with_array_success
     stub_request(:post, 'http://yunpian.com/v1/sms/send.json').
       to_return(status: 200, body: %Q({"code":0,"msg":"OK"}))
@@ -42,6 +50,14 @@ class TestYunpian < Minitest::Test
       to_return(status: 200, body: %Q({"code":0,"msg":"OK"}))
 
     assert ::Yunpian.send_to!('1234567890', 'hello')
+  end
+
+  def test_send_to_band_override_signature_success
+    stub_request(:post, 'http://yunpian.com/v1/sms/send.json').
+      with(body: hash_including(text: "【signature2】hello")).
+      to_return(status: 200, body: %Q({"code":0,"msg":"OK"}))
+
+    refute_nil ::Yunpian.send_to('1234567890', 'hello', '【signature2】')
   end
 
   def test_send_to_band_fail

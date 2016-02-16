@@ -10,20 +10,20 @@ module Yunpian
   class << self
     attr_accessor :apikey, :signature, :timeout
 
-    def send_to(recipients, content)
+    def send_to(recipients, content, signature = nil)
       params = {
         apikey: Yunpian.apikey,
         mobile: Array(recipients).join(','),
-        text:   "#{Yunpian.signature}#{content}"
+        text:   "#{signature || Yunpian.signature}#{content}"
       }
       Request.new(SEND_GATEWAY, params).perform
     end
 
-    def send_to!(recipients, content)
+    def send_to!(recipients, content, signature = nil)
       params = {
         apikey: Yunpian.apikey,
         mobile: Array(recipients).join(','),
-        text:   "#{Yunpian.signature}#{content}"
+        text:   "#{signature || Yunpian.signature}#{content}"
       }
       Request.new(SEND_GATEWAY, params).perform!
     end
