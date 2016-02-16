@@ -57,7 +57,7 @@ class TestYunpian < Minitest::Test
       with(body: hash_including(text: "【signature2】hello")).
       to_return(status: 200, body: %Q({"code":0,"msg":"OK"}))
 
-    refute_nil ::Yunpian.send_to('1234567890', 'hello', '【signature2】')
+    refute_nil ::Yunpian.send_to!('1234567890', 'hello', '【signature2】')
   end
 
   def test_send_to_band_fail
