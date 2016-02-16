@@ -32,6 +32,9 @@ Yunpian.send_to('10086', '流量唔够用啊') # => { code: 0, msg: "OK", result
 # Yunpian.send_to(['10086', '10010'], '信号好差啊')
 
 Yunpian.send_to!('10086', '流量唔够用啊')  # => will raise Yunpian::RequestException
+
+# 覆盖签名
+Yunpian.send_to!('10086', '流量唔够用啊', '【其他签名】')
 ```
 
 ### Get account info
