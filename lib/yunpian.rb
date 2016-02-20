@@ -10,6 +10,10 @@ module Yunpian
   class << self
     attr_accessor :apikey, :signature, :timeout
 
+    def signature
+      @signature.respond_to?(:call) ? @signature.call : @signature
+    end
+
     def send_to(recipients, content, signature = nil)
       params = {
         apikey: Yunpian.apikey,
