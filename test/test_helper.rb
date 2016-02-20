@@ -3,3 +3,9 @@ require 'yunpian'
 
 require 'minitest/autorun'
 require 'webmock/minitest'
+
+module I18n
+  class << self
+    attr_accessor :locale
+  end
+end
