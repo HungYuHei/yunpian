@@ -12,11 +12,11 @@ class TestYunpian < Minitest::Test
     refute_nil ::Yunpian.timeout
   end
 
-  def test_static_signature
+  def test_signature_static
     assert_equal "signature", ::Yunpian.signature
   end
 
-  def test_dynamic_signature
+  def test_signature_dynamic
     ::Yunpian.signature = ->{ I18n.locale == :en ? "SIGNATURE" : "签名" }
 
     I18n.locale = :en
