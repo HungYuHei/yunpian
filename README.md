@@ -23,6 +23,9 @@ Or install it yourself as:
 ```ruby
 Yunpian.apikey    = 'apikey'
 Yunpian.signature = '【签名】'
+
+# or, use dynamic signatures:
+Yunpian.signature = ->{ I18n.locale == :en ? "【SIGNATURE】" : "【签名】" }
 ```
 
 ### Send sms
